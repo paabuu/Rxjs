@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    
+    <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+</head>
+<body>
+    <input type="text">
+    <script>
+        const { of, interval, timer, from, fromEvent, defer } = rxjs;
+        const { map, repeat, repeatWhen } = rxjs.operators;
+        // of 列举数据
+        // const source$ = rxjs.of(1, 2, 3);
+
+        // range 范围数据
+        // const source$ = rxjs.range(1, 100);
+
+        // generate 循环创建
+        // const source$ = rxjs.generate(
+        //     'x',
+        //     v => v.length < 10,
+        //     v => v + 'x',
+        //     v => v
+        // );
+
+        // repeat 重复数据的数据流
+        // const source$ = of(1, 2, 3).pipe(
+        //     map(x => x * x),
+        //     repeat(10)
+        // );
+
+        // never, throw, empty
+
+        // interval, timer
+        // const $ = interval(1000);
+        // const $ = timer(1000, 2000);
+        
+        // from 
+        // $ = from([1, 2, 3]);
+
+        // fromEvent
+        // fromEvent(document.querySelector('input'), 'keydown')
+
+        // repeatWhen
+
+        // of(1, 2, 3)
+        // .pipe(
+        //     repeatWhen(
+        //         () => interval(1000)
+        //     )
+        // )
+        // .subscribe(console.log);
+
+        // defer
+
+        const factory = () => of(1, 2, 3);
+
+        const $ = defer(factory);
+        setTimeout(() => $.subscribe(console.log), 1000);
+    </script>
+</body>
+</html>

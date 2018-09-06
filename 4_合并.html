@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+
+</head>
+<body>
+    <script>
+        console.log(rxjs);
+        console.log(rxjs.operators);
+        const { of,  merge, timer, zip, combineLatest, forkJoin, interval} = rxjs;
+        const { concat, map, withLatestFrom, startWith, take, concatAll, exhaust, switchAll } = rxjs.operators;
+
+        // concat 首尾相连
+        // of(1, 2, 3)
+        // .pipe(
+        //     concat(of(4, 5, 6))
+        // )
+
+        // merge 按时间先后合并
+        // merge(
+        //     timer(0, 1000).pipe(map(x => x + "A")),
+        //     timer(500, 1000).pipe(map(x => x + "B"))
+        // )
+
+        // zip 对应合并
+        // zip(
+        //     timer(0, 1000).pipe(map(x => x + "A")),
+        //     timer(500, 1000).pipe(map(x => x + "B"))
+        // )
+
+        // combineLatest 合并最新
+
+        // combineLatest(
+        //     timer(0, 1000),
+        //     timer(500, 1000),
+        //     (a, b) => a + b
+        // )
+
+        // withLatestFrom
+
+        // timer(0, 2000).pipe(
+        //     withLatestFrom(timer(500, 10))
+        // )
+
+        // race 只保留最快的
+
+        // startWith 订阅的时候先吐出指定数据
+        // of(1, 2, 3)
+        // .pipe(
+        //     startWith(0)
+        // )
+
+        // forkJoin 只取最后一个数据
+        // forkJoin(
+        //     of(1, 2, 3),
+        //     of(4, 5, 6),
+        //     (a, b) => a + b
+        // )
+
+
+        // 高阶Observable
+        // interval(10).pipe(
+        //     take(20),
+        //     map(x => interval(1000).pipe(map(y => x + ":" + y), take(2)))
+        // ).pipe(concatAll())
+        // exhaust
+        // interval(1000).pipe(
+        //     take(3),
+        //     map(
+        //         x => interval(700).pipe(
+        //             map(y => x + ":" + y),
+        //             take(2)
+        //         )
+        //     )
+        // ).pipe(exhaust())
+        interval(1000).pipe(
+            take(20),
+            map(
+                x => interval(700).pipe(
+                    map(y => x + ":" + y),
+                    take(2)
+                )
+            )
+        ).pipe(switchAll())
+        .subscribe(console.log)
+    </script>
+</body>
+</html>

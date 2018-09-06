@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.3.2/rxjs.umd.js"></script>
+</head>
+<body>
+    <script>
+        const Observable = rxjs.Observable;
+
+        const map = function(project) {
+            return new Observable(observer => {
+                this.subscribe(
+                    value => observer.next(project(value)),
+                    observer.error,
+                    observer.complete
+                );
+            });
+        } 
+
+        Observable.prototype.map = map;
+
+        const onSubscribe = observer => {
+            let number = 1;
+
+            setInterval(() => {
+                observer.next(number++);
+            }, 1000);
+        };
+
+        const source$ = new Observable(onSubscribe).map(v => v * v);
+        const theObserver = {
+            next: item => console.log(item)
+        };
+
+        source$.subscribe(theObserver);
+    </script>
+</body>
+</html>
