@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+</head>
+<body>
+    <script>
+        const { of, interval } = rxjs;
+        const { map, mapTo, pluck, bufferTime, windowTime, bufferCount, windowCount, groupBy, concatAll, partition, scan } = rxjs.operators;
+
+        // map, mapTo, pluck
+        // of(1, 2, 3)
+        // .pipe(
+        //     map(x => x * x)
+        //     // mapTo("A")
+        // )
+
+        // bufferTime, windowTime
+        // interval(1000)
+        // .pipe(
+        //     // bufferTime(3000)
+        //     windowTime(3000)
+        // )
+        // .subscribe(w => w.subscribe(console.log))
+
+        // bufferCount, windowCount
+        // of(1, 2, 3, 4, 5, 6)
+        // .pipe(
+        //     windowCount(4, 5)
+        // )
+        
+        // groupBy
+
+        // const $ = interval(1000)
+        // .pipe(
+        //     groupBy(x => x % 2),
+        // )
+        // .subscribe(console.log)
+
+        // partition
+        // of(1, 2, 3, 4, 5)
+        // .pipe(
+        //     partition(x => x % 2 === 0)
+        // )[1]
+
+        interval(1000)
+        .pipe(
+            scan((acc, cur) => acc + cur)
+        )
+        .subscribe(console.log)
+    </script>
+</body>
+</html>

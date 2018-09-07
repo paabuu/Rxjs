@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+</head>
+<body>
+
+    <button>点击计数：</button><span>0</span>
+
+    <script>
+        const { of, range, interval, timer, fromEvent } = rxjs;
+        const { filter, first, last, take, takeLast, takeWhile, takeUntil, skip, skipWhile, skipUntil, distinct, distinctUntilChanged } = rxjs.operators;
+        
+        // filter
+        // range(1, 100)
+        // .pipe(
+        //     filter(x => x % 3 === 0)
+        // )
+
+        // first, last
+        // range(10, 100)
+        // .pipe(
+        //     // first()
+        //     last()
+        // )
+
+        // takeWhile
+        // range(1, 100)
+        // .pipe(
+        //     takeWhile(x => x < 50)
+        // )
+        // interval(1000)
+        // .pipe(
+        //     takeUntil(timer(5500))
+        // )
+
+        // 点击计数
+        // let count = 0;
+        // fromEvent(
+        //     document.querySelector('button'),
+        //     'click'
+        // ).pipe(
+        //     takeUntil(
+        //         timer(5000)
+        //     )
+        // )
+        // .subscribe(() => document.querySelector('span').innerText = ++count)
+        
+        // distinct
+        // of(1, 2, 3, 1, 2, 3, 5)
+        // .pipe(distinct())
+
+        // distinctUntilChanged
+        of(1, 2, 3, 1, 1, 2, 4, 4, 5)
+        .pipe(
+            distinctUntilChanged()
+        )
+        .subscribe(console.log)
+    </script>
+</body>
+</html>

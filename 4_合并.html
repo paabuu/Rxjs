@@ -78,12 +78,12 @@
         //         )
         //     )
         // ).pipe(exhaust())
-        interval(1000).pipe(
+        interval(1500).pipe(
             take(20),
             map(
-                x => interval(700).pipe(
+                x => interval(400).pipe(
                     map(y => x + ":" + y),
-                    take(2)
+                    take(3)
                 )
             )
         ).pipe(switchAll())

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+</head>
+<body>
+    <script>
+        const { of, range } = rxjs;
+        const { count, max, min, reduce, every, find, findIndex } = rxjs.operators;
+
+        // count 计数
+        // of(1, 2, 3, 4)
+        // .pipe(count())
+
+        // max. min
+        // of(1, 2, 3)
+        // .pipe(min())
+
+        // of(
+        //     { name: 'a', count: 1 },
+        //     { name: 'b', count: 2 },
+        //     { name: 'c', count: 3 }
+        // )
+        // .pipe(
+        //     max((a, b) => a.count - b.count)
+        // )
+
+        // reduce
+        // range(1, 100)
+        // .pipe(
+        //     reduce((acc, cur) => acc * cur, 1)
+        // )
+
+        // every
+        // of(1, 2, 3)
+        // .pipe(
+        //     every(x => x > 0)
+        // )
+
+        // find
+        // of(1, 2, 3)
+        // .pipe(
+        //     find(x => x % 2 === 0)
+        // )
+
+        // findIndex
+        of(1, 2, 3)
+        .pipe(
+            findIndex(x => x % 2 === 0)
+        )
+        .subscribe(console.log);
+
+    </script>
+</body>
+</html>
