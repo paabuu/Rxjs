@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+</head>
+<body>
+    <script>
+        const { Subject, interval } = rxjs;
+        const { multicast, take } = rxjs.operators;
+
+        // const subject = new Subject();
+        
+        // const subscription1 = subject.subscribe(
+        //     v => console.log(`on observer 1 data: ${v}`)
+        // );
+
+        // subject.next(1);
+
+        // const subscription2 = subject.subscribe(
+        //     v => console.log(`on observer 2 data: ${v}`)
+        // );
+
+        // subject.next(2);
+
+        // subscription1.unsubscribe();
+        // subject.next(3);
+        // subject.complete();
+
+        const cold = interval(1000).pipe(take(5));
+        const hot = cold.pipe(multicast(new Subject));
+
+        hot.subscribe(console.log);
+        setTimeout(() => {
+            hot.subscribe(console.log)
+        }, 2000);
+        hot.connect();
+    </script>
+</body>
+</html>

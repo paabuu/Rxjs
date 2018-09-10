@@ -10,7 +10,7 @@
 <body>
     <script>
         const { of, interval } = rxjs;
-        const { map, mapTo, pluck, bufferTime, windowTime, bufferCount, windowCount, groupBy, concatAll, partition, scan } = rxjs.operators;
+        const { map, mapTo, pluck, bufferTime, windowTime, bufferCount, windowCount, groupBy, concatAll, partition, scan, concatMap, take, mergeMap, switchMap } = rxjs.operators;
 
         // map, mapTo, pluck
         // of(1, 2, 3)
@@ -47,9 +47,16 @@
         //     partition(x => x % 2 === 0)
         // )[1]
 
+        // interval(1000)
+        // .pipe(
+        //     scan((acc, cur) => acc + cur)
+        // )
+
         interval(1000)
         .pipe(
-            scan((acc, cur) => acc + cur)
+            // concatMap(() => interval(200).pipe(take(4)))
+            // mergeMap(() => interval(500).pipe(take(4)))
+            switchMap(() => interval(300).pipe(take(4)))
         )
         .subscribe(console.log)
     </script>
